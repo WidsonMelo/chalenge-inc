@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CchalengeIncApplication {
+public class ChalengeIncApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CchalengeIncApplication.class, args);
+		SpringApplication.run(ChalengeIncApplication.class, args);
 	}
 
 }

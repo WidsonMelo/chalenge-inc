@@ -1,25 +1,34 @@
 package com.widson.chalengeinc.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.Id;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-@Getter @Setter @NoArgsConstructor
-public class User {
+public class User implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String name;
 	
-
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 }
