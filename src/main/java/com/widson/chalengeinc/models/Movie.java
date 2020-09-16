@@ -17,7 +17,6 @@ public class Movie implements Serializable{
 	public Integer id;
 	public String title;
 	public String year;
-	public String released;
 	public String runtime;
 	public String genre;
 	public String director;
@@ -45,12 +44,6 @@ public class Movie implements Serializable{
 	}
 	public void setYear(String year) {
 		this.year = year;
-	}
-	public String getReleased() {
-		return released;
-	}
-	public void setReleased(String released) {
-		this.released = released;
 	}
 	public String getRuntime() {
 		return runtime;
