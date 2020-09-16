@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "wishlist")
 public class WishList {
@@ -20,10 +22,12 @@ public class WishList {
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer"})
 	private User user;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "movie_id", referencedColumnName = "id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer"})
 	private Movie movie;
 	
 	private Double note;

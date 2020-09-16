@@ -20,21 +20,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.widson.chalengeinc.models.Movie;
 import com.widson.chalengeinc.repositories.MovieRepository;
+import com.widson.chalengeinc.services.MovieService;
 
 
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
 	@Autowired
+	private MovieService movieService;
+	
+	@Autowired
 	private MovieRepository movieRepository;
 	
 	@GetMapping("/all")
 	public List<Movie> readAll() {
-		return movieRepository.findAll();	
+		return movieRepository.findAll();
+	}
+	
+	@GetMapping("/movieTitle/{movieTitle}")
+	public ResponseEntity<Movie> readByTitle(@PathVariable String movieTitle) {
+		Movie movie = movieService.findByTitle(movieTitle);
+		return ResponseEntity.ok(movie);
+	}
+	
+	@GetMapping("/movieId/{id}")
+	public ResponseEntity<Movie> readById(@PathVariable String id) {
+		Movie movie = movieService.findById(id);
+		return ResponseEntity.ok(movie);
 	}
 	
 	// Faz a busca, se houver algum registro, retorna ele, caso contrário retorna o código 404 (não encontrado)
-	@GetMapping("/{movieId}")
+	@GetMapping("/id/{movieId}")
 	public ResponseEntity<Movie> readById(@PathVariable Integer movieId) {
 		Optional<Movie> movie = movieRepository.findById(movieId);
 		if(movie.isPresent()) {
