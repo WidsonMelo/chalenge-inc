@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	// Faz a busca, se houver algum registro, retorna ele, caso contrário retorna o código 404 (não encontrado)
-	@GetMapping("/{userId}")
+	@GetMapping("/id/{userId}")
 	public ResponseEntity<User> readById(@PathVariable Integer userId) {
 		Optional<User> user = userRepository.findById(userId);
 		if(user.isPresent()) {
@@ -54,7 +54,7 @@ public class UserController {
 	
 	// Faz a busca, se o elemento existir, atualiza, caso contrrário retorna 404
 	// @Valid valida as regrasdos campos para ficar igual as definições do model (@size)
-	@PutMapping("/{userId}")
+	@PutMapping("/id/{userId}")
 	public ResponseEntity<User> updateById(@Valid @PathVariable Integer userId, @RequestBody User user) {
 		if (userRepository.existsById(userId)) {
 			user.setId(userId);

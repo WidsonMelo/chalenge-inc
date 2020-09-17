@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,41 +23,53 @@ public class Movie implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Transient
 	@JsonProperty("Title")
 	private String title;
 	
+	@Transient
 	@JsonProperty("Year")
 	private String year;
 	
+	@Transient
 	@JsonProperty("Runtime")
 	private String runtime;
 	
+	@Transient
 	@JsonProperty("Genre")
 	private String genre;
 	
+	@Transient
 	@JsonProperty("Director")
 	private String director;
 	
+	@Transient
 	@JsonProperty("Writer")
 	private String writer;
 	
+	@Transient
 	@JsonProperty("Actors")
 	private String actors;
 	
+	@Transient
 	@JsonProperty("Plot")
 	private String plot;
 	
+	@Transient
 	@JsonProperty("Language")
 	private String language;
 	
+	@Transient
 	@JsonProperty("Country")
 	private String country;
 	
+	@Transient
 	@JsonProperty("Poster")
 	private String poster;
 	
+	@JoinColumn(name = "imdbid")
 	@JsonProperty("imdbID")
-	private String imdbID;
+	private String imdbid;
 	
 	public Integer getId() {
 		return id;
@@ -151,10 +165,13 @@ public class Movie implements Serializable{
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
-	public String getImdbID() {
-		return imdbID;
+	@JsonProperty("imdbID")
+	public String getImdbid() {
+		return imdbid;
 	}
-	public void setImdbID(String imdbID) {
-		this.imdbID = imdbID;
+	@JsonProperty("imdbID")
+	public void setImdbid(String imdbid) {
+		this.imdbid = imdbid;
 	}
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.widson.chalengeinc.models.Movie;
+import com.widson.chalengeinc.repositories.MovieRepository;
 
 import reactor.core.publisher.Mono;
 
@@ -15,6 +16,9 @@ public class MovieService {
 
 	@Autowired
 	private WebClient webClient;
+	
+	@Autowired
+	private MovieRepository movieRepository;
 
 	public Movie findByTitle(String title) {
 		Mono<Movie> monoMovie = this.webClient.method(HttpMethod.GET)
@@ -30,6 +34,12 @@ public class MovieService {
 				.bodyToMono(Movie.class);
 		Movie movie = monoMovie.block();
 		return movie;
+	}
+	
+	public Movie create(Movie movie) {
+		Movie m = new Movie();
+		m.setImdbid(movie.getImdbid());
+		return movieRepository.save(m);
 	}
 
 }

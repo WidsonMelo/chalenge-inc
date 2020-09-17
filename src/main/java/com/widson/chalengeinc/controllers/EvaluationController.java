@@ -38,26 +38,35 @@ public class EvaluationController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	
+	// Todas as listagens de um único usuário
 	@GetMapping("/userId/{id}")
 	public ResponseEntity<List<Evaluation>> findAllByUser(@PathVariable Integer id) {
 		Optional<User> userOptional = userRepository.findById(id);
 		if (userOptional.isPresent()) {
 			User user = userOptional.get();
 			List<Evaluation> evaluations = evaluationRepository.findAllByUser(user);
+			
 			return ResponseEntity.ok(evaluations);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 	}	
 	
-	@GetMapping
+	@GetMapping("/public/{id}")
 	public List<Evaluation> findAllPublic() {
 		return evaluationRepository.findAllByVisualization(Visualization.PUBLIC);
 	}	
 	
+	@GetMapping("/private/{id}")
+	public List<Evaluation> findAllPrivate() {
+		return evaluationRepository.findAllByVisualization(Visualization.PRIVATE);
+	}
+	
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Evaluation> findById(@PathVariable Integer evaluationId) {
 		Optional<Evaluation> evaluation = evaluationRepository.findById(evaluationId);
+		
 		if(evaluation.isPresent()) {
 			return ResponseEntity.ok(evaluation.get());
 		} else {
@@ -65,11 +74,20 @@ public class EvaluationController {
 		}
 	}
 	
-	// Transforma o json recebido no corpo em um objeto Usuario e cria no banco de dados
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Evaluation create(@Valid @RequestBody Evaluation evaluation) {		
-		return evaluationRepository.save(evaluation);
+	public ResponseEntity<Evaluation> create(@RequestBody Evaluation evaluation) {
+		
+		Optional<User> user =  userRepository.findById(evaluation.getUser().getId());
+		if (user.isPresent()) {
+			evaluation.setUser(user.get());
+		}
+		
+		Movie movie =  movieService.findById(evaluation.getMovie().getImdbid());
+		movieService.create(movie);
+		evaluation.setMovie(movie);
+		
+		return ResponseEntity.ok().body(evaluationRepository.save(evaluation));
 	}
 	
 	@PutMapping("/id/{id}")
