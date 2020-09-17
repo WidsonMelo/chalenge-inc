@@ -24,45 +24,48 @@ public class Movie implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer id;
+	private String id;
 	
 	@JsonProperty("Title")
-	public String title;
+	private String title;
 	
 	@JsonProperty("Year")
-	public String year;
+	private String year;
 	
 	@JsonProperty("Runtime")
-	public String runtime;
+	private String runtime;
 	
 	@JsonProperty("Genre")
-	public String genre;
+	private String genre;
 	
 	@JsonProperty("Director")
-	public String director;
+	private String director;
 	
 	@JsonProperty("Writer")
-	public String writer;
+	private String writer;
 	
 	@JsonProperty("Actors")
-	public String actors;
+	private String actors;
 	
 	@JsonProperty("Plot")
-	public String plot;
+	private String plot;
 	
 	@JsonProperty("Language")
-	public String language;
+	private String language;
 	
 	@JsonProperty("Country")
-	public String country;
+	private String country;
 	
 	@JsonProperty("Poster")
-	public String poster;
+	private String poster;
 	
-	public Integer getId() {
+	@JsonProperty("imdbID")
+	private String imdbID;
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	@JsonProperty("Title")
@@ -152,5 +155,11 @@ public class Movie implements Serializable{
 	@JsonProperty("Poster")
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+	public String getImdbID() {
+		return imdbID;
+	}
+	public void setImdbID(String imdbID) {
+		this.imdbID = imdbID;
 	}
 }

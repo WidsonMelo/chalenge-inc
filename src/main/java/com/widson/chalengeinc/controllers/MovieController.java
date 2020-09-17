@@ -69,16 +69,16 @@ public class MovieController {
 	
 	// Faz a busca, se o elemento existir, atualiza, caso contrrário retorna 404
 	// @Valid valida as regrasdos campos para ficar igual as definições do model (@size)
-	@PutMapping("/{movieId}")
-	public ResponseEntity<Movie> updateById(@Valid @PathVariable Integer movieId, @RequestBody Movie movie) {
-		if (movieRepository.existsById(movieId)) {
-			movie.setId(movieId);
-			movie = movieRepository.save(movie);
-			return ResponseEntity.ok().body(movie);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
+//	@PutMapping("/{movieId}")
+//	public ResponseEntity<Movie> updateById(@Valid @PathVariable String movieId, @RequestBody Movie movie) {
+//		if (movieRepository.existsById(movieId)) {
+//			movie.setId(movieId);
+//			movie = movieRepository.save(movie);
+//			return ResponseEntity.ok().body(movie);
+//		} else {
+//			return ResponseEntity.notFound().build();
+//		}
+//	}
 	
 	@DeleteMapping("/{movieId}")
 	public ResponseEntity<Void> delete(@PathVariable Integer movieId){

@@ -18,7 +18,7 @@ public class MovieService {
 
 	public Movie findByTitle(String title) {
 		Mono<Movie> monoMovie = this.webClient.method(HttpMethod.GET)
-				.uri("?apikey={apiKey}&t={title}&plot=full", apiKey, title).retrieve()
+				.uri("?apikey={apiKey}&t={title}&plot=short", apiKey, title).retrieve()
 				.bodyToMono(Movie.class);
 		Movie movie = monoMovie.block();
 		return movie;
@@ -26,7 +26,7 @@ public class MovieService {
 	
 	public Movie findById(String id) {
 		Mono<Movie> monoMovie = this.webClient.method(HttpMethod.GET)
-				.uri("?apikey={apiKey}&i={id}&plot=full", apiKey, id).retrieve()
+				.uri("?apikey={apiKey}&i={id}&plot=short", apiKey, id).retrieve()
 				.bodyToMono(Movie.class);
 		Movie movie = monoMovie.block();
 		return movie;

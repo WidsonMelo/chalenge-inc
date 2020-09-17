@@ -25,6 +25,7 @@ import com.widson.chalengeinc.models.WishList;
 import com.widson.chalengeinc.repositories.UserRepository;
 import com.widson.chalengeinc.repositories.MovieRepository;
 import com.widson.chalengeinc.repositories.WishListRepository;
+import com.widson.chalengeinc.services.MovieService;
 
 @RestController
 @RequestMapping("/wishlist")
@@ -36,7 +37,7 @@ public class WishListController {
 	private UserRepository userRepository;
 	
 	@Autowired
-	private MovieRepository movieRepository;
+	private MovieService movieService;
 	
 	@GetMapping("/all")
 	public List<WishList> readAll() {
@@ -63,9 +64,9 @@ public class WishListController {
 			wishList.setUser(user.get());
 		}
 		
-		Optional<Movie> movie =  movieRepository. findById(wishList.getMovie().getId());
-		if (movie.isPresent()) {
-			wishList.setMovie(movie.get());
+		Movie movie =  movieService.findById(wishList.getMovie().getId());
+		if (movie != null) {
+			wishList.setMovie(movie);
 		}
 
 		return wishListRepository.save(wishList);
