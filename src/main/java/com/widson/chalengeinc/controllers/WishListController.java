@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +22,6 @@ import com.widson.chalengeinc.models.Movie;
 import com.widson.chalengeinc.models.User;
 import com.widson.chalengeinc.models.WishList;
 import com.widson.chalengeinc.repositories.UserRepository;
-import com.widson.chalengeinc.repositories.MovieRepository;
 import com.widson.chalengeinc.repositories.WishListRepository;
 import com.widson.chalengeinc.services.MovieService;
 
@@ -56,21 +54,21 @@ public class WishListController {
 	}
 	
 	// Transforma o json recebido no corpo em um objeto Usuario e cria no banco de dados
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public WishList create(@Valid @RequestBody WishList wishList) {	
-		Optional<User> user =  userRepository.findById(wishList.getUser().getId());
-		if (user.isPresent()) {
-			wishList.setUser(user.get());
-		}
-		
-		Movie movie =  movieService.findById(wishList.getMovie().getId());
-		if (movie != null) {
-			wishList.setMovie(movie);
-		}
-
-		return wishListRepository.save(wishList);
-	}
+//	@PostMapping
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public WishList create(@Valid @RequestBody WishList wishList) {	
+//		Optional<User> user =  userRepository.findById(wishList.getUser().getId());
+//		if (user.isPresent()) {
+//			wishList.setUser(user.get());
+//		}
+//		
+//		Movie movie =  movieService.findById(wishList.getMovie().getId());
+//		if (movie != null) {
+//			wishList.setMovie(movie);
+//		}
+//
+//		return wishListRepository.save(wishList);
+//	}
 	
 	// Faz a busca, se o elemento existir, atualiza, caso contrrário retorna 404
 	// @Valid valida as regrasdos campos para ficar igual as definições do model (@size)
