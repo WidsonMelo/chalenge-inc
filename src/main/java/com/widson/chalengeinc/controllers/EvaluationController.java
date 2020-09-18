@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,13 @@ import com.widson.chalengeinc.repositories.EvaluationRepository;
 import com.widson.chalengeinc.repositories.UserRepository;
 import com.widson.chalengeinc.services.MovieService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+
+
+@Api(value = "Controller for all movie review transactions")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/evaluation")
 public class EvaluationController {
@@ -39,7 +47,7 @@ public class EvaluationController {
 	private UserRepository userRepository;
 	
 	
-	// Todas as listagens de um único usuário
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@GetMapping("/userId/{id}")
 	public ResponseEntity<List<Evaluation>> findAllByUser(@PathVariable Integer id) {
 		Optional<User> userOptional = userRepository.findById(id);
@@ -53,16 +61,19 @@ public class EvaluationController {
 		}
 	}	
 	
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@GetMapping("/public/{id}")
 	public List<Evaluation> findAllPublic() {
 		return evaluationRepository.findAllByVisualization(Visualization.PUBLIC);
 	}	
 	
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@GetMapping("/private/{id}")
 	public List<Evaluation> findAllPrivate() {
 		return evaluationRepository.findAllByVisualization(Visualization.PRIVATE);
 	}
 	
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Evaluation> findById(@PathVariable Integer evaluationId) {
 		Optional<Evaluation> evaluation = evaluationRepository.findById(evaluationId);
@@ -74,6 +85,7 @@ public class EvaluationController {
 		}
 	}
 	
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Evaluation> create(@RequestBody Evaluation evaluation) {
@@ -90,6 +102,7 @@ public class EvaluationController {
 		return ResponseEntity.ok().body(evaluationRepository.save(evaluation));
 	}
 	
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@PutMapping("/id/{id}")
 	public ResponseEntity<Evaluation> updateById(@Valid @PathVariable Integer id, @RequestBody Evaluation evaluation) {
 		if (evaluationRepository.existsById(id)) {
@@ -101,6 +114,7 @@ public class EvaluationController {
 		}
 	}
 	
+	@ApiOperation(value = "Returns all user movie evaluation list")
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		if (evaluationRepository.existsById(id)) {

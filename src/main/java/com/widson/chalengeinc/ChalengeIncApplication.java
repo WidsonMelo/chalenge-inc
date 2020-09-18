@@ -8,8 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
-public class ChalengeIncApplication {	
-	
+public class ChalengeIncApplication {		
+
 	@Bean
 	public WebClient webClientMovies(WebClient.Builder builder) {
 		return builder
