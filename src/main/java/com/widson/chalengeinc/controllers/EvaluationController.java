@@ -32,10 +32,10 @@ import io.swagger.annotations.ApiOperation;
 
 
 
+@RequestMapping("/evaluation")
 @Api(value = "Controller for all movie review transactions")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/evaluation")
 public class EvaluationController {
 	@Autowired
 	private EvaluationRepository evaluationRepository;
