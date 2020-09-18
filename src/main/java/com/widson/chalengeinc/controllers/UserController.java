@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.widson.chalengeinc.models.User;
 import com.widson.chalengeinc.services.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
 @RequestMapping("/user")
@@ -27,7 +29,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	// Retorna uma lista com todos os Uer
+	@ApiOperation(value = "Returns the complete list of all users.")
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> findAll() {
 		List<User> uses = userService.findAll(); 
@@ -38,21 +40,21 @@ public class UserController {
 		}	
 	}
 	
-	// Faz a busca, se houver algum registro, retorna ele, caso contrário retorna o código 404 (não encontrado)
+	@ApiOperation(value = "Find a user by id")
 	@GetMapping("/id/{userId}")
 	public ResponseEntity<User> findById(@PathVariable Integer userId) {
 		User user = userService.findById(userId);
 		return ResponseEntity.ok().body(user);
 	}
 	
-	// Transforma o json recebido no corpo em um objeto Usuario e cria no banco de dados
+	@ApiOperation(value = "Create a new user.")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@Valid @RequestBody User user) {		
 		return userService.save(user);
 	}
 	
-	// Faz a busca, se o elemento existir, atualiza, caso contrário retorna 404
+	@ApiOperation(value = "Updates an existing user.")
 	@PutMapping("/id/{userId}")
 	public ResponseEntity<User> updateById(@PathVariable Integer userId, @RequestBody User user) {
 		
@@ -65,7 +67,7 @@ public class UserController {
 		}
 	}
 	
-	// Faz uma busca por User, se existir, deleta, caso contrário retorna 404
+	@ApiOperation(value = "Delete an existing user.")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Void> delete(@PathVariable Integer userId){
 		User user = new User();

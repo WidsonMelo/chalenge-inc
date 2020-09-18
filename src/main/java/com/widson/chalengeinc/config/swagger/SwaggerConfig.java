@@ -27,9 +27,9 @@ public class SwaggerConfig{
 
 	  private ApiInfo metaData() {
 	    return new ApiInfoBuilder()
-	        .title("Spring Boot REST API")
-	        .description("\"Spring Boot REST API\"")
-	        .version("1.0.0")
+	        .title("Movie Evaluation Application")
+	        .description("\"Chalenge-inc is a company responsible for creating media applications and is studying the development of a new application so that its users can exchange information about the films they have watched and those they still want to watch. This project consumes an Api to describe films.\"")
+	        .version("0.1.0")
 	        .license("Apache License Version 2.0")
 	        .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
 	        .build();
