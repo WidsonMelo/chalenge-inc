@@ -25,6 +25,8 @@ import com.widson.chalengeinc.repositories.UserRepository;
 import com.widson.chalengeinc.repositories.WishListRepository;
 import com.widson.chalengeinc.services.MovieService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/wishlist")
 public class WishListController {
@@ -42,7 +44,7 @@ public class WishListController {
 		return wishListRepository.findAll();	
 	}
 	
-	// Faz a busca, se houver algum registro, retorna ele, caso contrário retorna o código 404 (não encontrado)
+	@ApiOperation(value = "Find a wishlist by id")
 	@GetMapping("/{wishListId}")
 	public ResponseEntity<WishList> readById(@PathVariable Integer wishListId) {
 		Optional<WishList> wishList = wishListRepository.findById(wishListId);
@@ -53,25 +55,18 @@ public class WishListController {
 		}
 	}
 	
-	// Transforma o json recebido no corpo em um objeto Usuario e cria no banco de dados
-//	@PostMapping
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public WishList create(@Valid @RequestBody WishList wishList) {	
-//		Optional<User> user =  userRepository.findById(wishList.getUser().getId());
-//		if (user.isPresent()) {
-//			wishList.setUser(user.get());
-//		}
-//		
-//		Movie movie =  movieService.findById(wishList.getMovie().getId());
-//		if (movie != null) {
-//			wishList.setMovie(movie);
-//		}
-//
-//		return wishListRepository.save(wishList);
-//	}
-	
-	// Faz a busca, se o elemento existir, atualiza, caso contrrário retorna 404
-	// @Valid valida as regrasdos campos para ficar igual as definições do model (@size)
+	@ApiOperation(value = "Create a new wishlist")
+	@GetMapping()
+	public ResponseEntity<WishList> create(@RequestBody Integer wishListId) {
+		Optional<WishList> wishList = wishListRepository.findById(wishListId);
+		if(wishList.isPresent()) {
+			return ResponseEntity.ok(wishList.get());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@ApiOperation(value = "Updates a wishlist by id")
 	@PutMapping("/{wishListId}")
 	public ResponseEntity<WishList> updateById(@Valid @PathVariable Integer wishListId, @RequestBody WishList wishList) {
 		if (wishListRepository.existsById(wishListId)) {
@@ -83,6 +78,7 @@ public class WishListController {
 		}
 	}
 	
+	@ApiOperation(value = "Delete a wishlist by id")
 	@DeleteMapping("/{wishListId}")
 	public ResponseEntity<Void> delete(@PathVariable Integer wishListId){
 		if (wishListRepository.existsById(wishListId)) {
