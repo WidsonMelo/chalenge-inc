@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.widson.chalengeinc.enuns.Visualization;
+import com.widson.chalengeinc.enums.Visualization;
 import com.widson.chalengeinc.models.Evaluation;
 import com.widson.chalengeinc.models.User;
 

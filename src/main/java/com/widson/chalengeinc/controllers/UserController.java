@@ -1,8 +1,6 @@
 package com.widson.chalengeinc.controllers;
 
 import java.util.List;
-import java.util.Optional;
-
 
 import javax.validation.Valid;
 
@@ -20,58 +18,60 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.widson.chalengeinc.models.User;
-import com.widson.chalengeinc.repositories.UserRepository;
+import com.widson.chalengeinc.services.UserService;
 
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
+	// Retorna uma lista com todos os Uer
 	@GetMapping("/all")
-	public List<User> readAll() {
-		return userRepository.findAll();	
+	public ResponseEntity<List<User>> findAll() {
+		List<User> uses = userService.findAll(); 
+		if(!uses.isEmpty()) {
+			return ResponseEntity.ok(uses);
+		} else {
+			return ResponseEntity.notFound().build();
+		}	
 	}
 	
 	// Faz a busca, se houver algum registro, retorna ele, caso contrário retorna o código 404 (não encontrado)
 	@GetMapping("/id/{userId}")
-	public ResponseEntity<User> readById(@PathVariable Integer userId) {
-		Optional<User> user = userRepository.findById(userId);
-		if(user.isPresent()) {
-			return ResponseEntity.ok(user.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+	public ResponseEntity<User> findById(@PathVariable Integer userId) {
+		User user = userService.findById(userId);
+		return ResponseEntity.ok().body(user);
 	}
 	
 	// Transforma o json recebido no corpo em um objeto Usuario e cria no banco de dados
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@Valid @RequestBody User user) {		
-		return userRepository.save(user);
+		return userService.save(user);
 	}
 	
-	// Faz a busca, se o elemento existir, atualiza, caso contrrário retorna 404
-	// @Valid valida as regrasdos campos para ficar igual as definições do model (@size)
+	// Faz a busca, se o elemento existir, atualiza, caso contrário retorna 404
 	@PutMapping("/id/{userId}")
-	public ResponseEntity<User> updateById(@Valid @PathVariable Integer userId, @RequestBody User user) {
-		if (userRepository.existsById(userId)) {
+	public ResponseEntity<User> updateById(@PathVariable Integer userId, @RequestBody User user) {
+		
+		if (userService.findById(userId).getId() > 0) {
 			user.setId(userId);
-			user = userRepository.save(user);
+			user = userService.save(user);
 			return ResponseEntity.ok().body(user);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
+	// Faz uma busca por User, se existir, deleta, caso contrário retorna 404
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Void> delete(@PathVariable Integer userId){
-		if (userRepository.existsById(userId)) {
-			userRepository.deleteById(userId);
-			return ResponseEntity.noContent().build();
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		User user = new User();
+		user.setId(userId);
+		userService.delete(user);
+		
+		return ResponseEntity.noContent().build();
 	}
 }

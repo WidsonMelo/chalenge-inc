@@ -1,4 +1,4 @@
-package com.widson.chalengeinc.enuns;
+package com.widson.chalengeinc.enums;
 
 public enum Visualization {
 	PUBLIC,

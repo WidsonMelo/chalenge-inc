@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.widson.chalengeinc.enuns.Visualization;
+import com.widson.chalengeinc.enums.Visualization;
 import com.widson.chalengeinc.models.Evaluation;
 import com.widson.chalengeinc.models.Movie;
 import com.widson.chalengeinc.models.User;
 import com.widson.chalengeinc.repositories.EvaluationRepository;
-import com.widson.chalengeinc.repositories.UserRepository;
 import com.widson.chalengeinc.services.MovieService;
+import com.widson.chalengeinc.services.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,20 +40,27 @@ public class EvaluationController {
 	@Autowired
 	private EvaluationRepository evaluationRepository;
 	
+//	@Autowired
+//	private UserRepository userRepository;
+	
 	@Autowired
 	private MovieService movieService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	
 	@ApiOperation(value = "Returns all user movie evaluation list")
 	@GetMapping("/userId/{id}")
 	public ResponseEntity<List<Evaluation>> findAllByUser(@PathVariable Integer id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		if (userOptional.isPresent()) {
-			User user = userOptional.get();
+		User user = userService.findById(id);
+
+		if (user.getId() > 0) {
 			List<Evaluation> evaluations = evaluationRepository.findAllByUser(user);
+			
+			for(Evaluation evaluation : evaluations){
+				evaluation.setMovie(movieService.findById(evaluation.getMovie().getImdbid()));
+	        }
 			
 			return ResponseEntity.ok(evaluations);
 		} else {
@@ -73,13 +80,15 @@ public class EvaluationController {
 		return evaluationRepository.findAllByVisualization(Visualization.PRIVATE);
 	}
 	
-	@ApiOperation(value = "Returns all user movie evaluation list")
+	@ApiOperation(value = "Returns all evaluation by id")
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Evaluation> findById(@PathVariable Integer evaluationId) {
-		Optional<Evaluation> evaluation = evaluationRepository.findById(evaluationId);
-		
+	public ResponseEntity<Evaluation> findById(@PathVariable Integer id) {
+		Optional<Evaluation> evaluation = evaluationRepository.findById(id);
 		if(evaluation.isPresent()) {
-			return ResponseEntity.ok(evaluation.get());
+			Evaluation e = evaluation.get();
+			Movie movie = movieService.findById(e.getMovie().getImdbid());
+			e.setMovie(movie);
+			return ResponseEntity.ok(e);
 		} else {
 			return ResponseEntity.notFound().build();
 		}
@@ -90,9 +99,9 @@ public class EvaluationController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Evaluation> create(@RequestBody Evaluation evaluation) {
 		
-		Optional<User> user =  userRepository.findById(evaluation.getUser().getId());
-		if (user.isPresent()) {
-			evaluation.setUser(user.get());
+		User user =  userService.findById(evaluation.getUser().getId());
+		if (user.getId() > 0) {
+			evaluation.setUser(user);
 		}
 		
 		Movie movie =  movieService.findById(evaluation.getMovie().getImdbid());

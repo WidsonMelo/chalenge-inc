@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.widson.chalengeinc.enuns.Visualization;
+import com.widson.chalengeinc.enums.Visualization;
 
 @Entity
 @Table(name = "evaluation")
