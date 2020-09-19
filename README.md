@@ -16,6 +16,7 @@ Chalenge Inc is a company responsible for creating media applications and is stu
 * MySQL 8.0.21
 * Spring Boot 2.3.3.RELEASE
 * JDK 1.8.0_261
+* Swagger 3
 
 ## Notes
 * The file for configuring the database and other definitions is in the directory below:
@@ -43,6 +44,13 @@ File > Import >  Maven > Existing Maven Projects (next) > Finish
 * Navigate to the directory that contains the extracted project folder (browse).
 * After importing the project, Maven will download the necessary dependencies and this will take a few minutes, according to information in the lower left bar of the eclipse (Progress).
 * To start the application, run the main class for this project with "Run as Java application" if using Eclipse IDE or "Run as Spring Boot App" if using Spring Tool Suite.
+
+## Swagger
+* Swagger was used to make all requests, as shown in the figure below.
+![TESTE](/XXX.png = 500x347)
+
+* To view the complete Swagger documentation, you need to access "http://localhost:9002/swagger-ui/index.html" when it is started.
+* Tge port 9002 can be changed according to the application.properties file.
 
 ## Built With
 * [Spring Tool Suite 4](https://spring.io/tools) - IDE used.
