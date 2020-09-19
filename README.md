@@ -51,9 +51,7 @@ File > Import >  Maven > Existing Maven Projects (next) > Finish
 
 ## Autor
 **Widson Gomes de Melo**
-```
-Linkedin https://www.linkedin.com/in/widsonmelo/
-```
+* [Linkedin](https://www.linkedin.com/in/widsonmelo/) - www.linkedin.com/in/widsonmelo
 
 ## Licence
 * This project is licensed under the Apache License - see the [LICENSE.md](LICENSE) file for details.
