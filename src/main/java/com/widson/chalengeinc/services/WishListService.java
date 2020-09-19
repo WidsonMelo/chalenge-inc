@@ -24,27 +24,27 @@ public class WishListService {
 	@Autowired
 	public MovieService movieService;
 	
-	@Autowired
-	public MovieService movieService;
-	
-	Optional<WishList> create(WishList wishList) {
-		Optional<User> user = userRepository.findById(wishList.getUser().getId());
-		
-		userService.findB
-		
-		
-		
-		
-		
-		
-		if (user.isPresent()) {
-			Movie movie = movieService.findByIdImdb(wishList.getMovie().getImdbid());
-			WishList wishL = new WishList();
-			wishL.setMovie(movie);
-			wishL.setUser(user.get());
-			wishListRepository.save(wishL);
-			return wishListRepository.save(wishL);
-		}
-		return null;
-	}
+//	@Autowired
+//	public MovieService movieService;
+//	
+//	Optional<WishList> create(WishList wishList) {
+//		Optional<User> user = userRepository.findById(wishList.getUser().getId());
+//		
+//		userService.findB
+//		
+//		
+//		
+//		
+//		
+//		
+//		if (user.isPresent()) {
+//			Movie movie = movieService.findByIdImdb(wishList.getMovie().getImdbid());
+//			WishList wishL = new WishList();
+//			wishL.setMovie(movie);
+//			wishL.setUser(user.get());
+//			wishListRepository.save(wishL);
+//			return wishListRepository.save(wishL);
+//		}
+//		return null;
+//	}
 }
