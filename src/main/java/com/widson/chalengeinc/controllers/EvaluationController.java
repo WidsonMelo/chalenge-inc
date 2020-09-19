@@ -24,7 +24,6 @@ import com.widson.chalengeinc.models.Movie;
 import com.widson.chalengeinc.models.User;
 import com.widson.chalengeinc.repositories.EvaluationRepository;
 import com.widson.chalengeinc.repositories.UserRepository;
-import com.widson.chalengeinc.services.EvaluationService;
 import com.widson.chalengeinc.services.MovieService;
 import com.widson.chalengeinc.services.UserService;
 
@@ -35,10 +34,7 @@ import io.swagger.annotations.ApiOperation;
 public class EvaluationController {
 	@Autowired
 	private EvaluationRepository evaluationRepository;
-	
-	@Autowired
-	private EvaluationService evaluationService;
-	
+		
 	@Autowired
 	private MovieService movieService;
 	

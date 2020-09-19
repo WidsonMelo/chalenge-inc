@@ -18,35 +18,34 @@ public class MovieService {
 
 	@Autowired
 	private WebClient webClient;
-	
+
 	@Autowired
 	private MovieRepository movieRepository;
 
 	public Movie findByTitleImdb(String title) {
 		Mono<Movie> monoMovie = this.webClient.method(HttpMethod.GET)
-				.uri("?apikey={apiKey}&t={title}&plot=short", apiKey, title).retrieve()
-				.bodyToMono(Movie.class);
+				.uri("?apikey={apiKey}&t={title}&plot=short", apiKey, title).retrieve().bodyToMono(Movie.class);
 		Movie movie = monoMovie.block();
 		return movie;
 	}
-	
+
 	public Movie findByIdImdb(String id) {
 		Mono<Movie> monoMovie = this.webClient.method(HttpMethod.GET)
-				.uri("?apikey={apiKey}&i={id}&plot=short", apiKey, id).retrieve()
-				.bodyToMono(Movie.class);
+				.uri("?apikey={apiKey}&i={id}&plot=short", apiKey, id).retrieve().bodyToMono(Movie.class);
 		Movie movie = monoMovie.block();
+
 		return movie;
 	}
-	
+
 	public Movie findById(Integer id) {
 		Optional<Movie> movieOptional = movieRepository.findById(id);
-		if(movieOptional.isPresent()) {
+		if (movieOptional.isPresent()) {
 			return movieOptional.get();
 		} else {
 			return null;
-		} 
+		}
 	}
-	
+
 	public Movie create(Movie movie) {
 		Movie m = new Movie();
 		m.setImdbid(movie.getImdbid());

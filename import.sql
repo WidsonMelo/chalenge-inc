@@ -1,1 +1,0 @@
-INSERT INTO movie (title, year, runtime, genre, director, writer, actors, plot, language, country, poster) VALUES ('O senhor dos anéis', '2001', '2:45', 'Fantasia Medieval', 'Um doido aí', 'Outro doido maconheiro', 'Gandalf', 'Negada foi tentar achar o anel', 'Português', 'EUA', 'um link');
