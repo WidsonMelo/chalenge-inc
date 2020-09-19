@@ -46,9 +46,8 @@ File > Import >  Maven > Existing Maven Projects (next) > Finish
 * To start the application, run the main class for this project with "Run as Java application" if using Eclipse IDE or "Run as Spring Boot App" if using Spring Tool Suite.
 
 ## Swagger
-* Swagger was used to make all requests, as shown in the figure below.
 ![TESTE](/XXX.png = 500x347)
-
+* Swagger was used to make all requests, as shown in the figure below.
 * To view the complete Swagger documentation, you need to access "http://localhost:9002/swagger-ui/index.html" when it is started.
 * Tge port 9002 can be changed according to the application.properties file.
 
